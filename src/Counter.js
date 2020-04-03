@@ -8,7 +8,8 @@ const getStateFromLocalStorage = () => {
 
 const storeStateInLocalStorage = state => {
   localStorage.setItem('counterState', JSON.stringify(state));
-  console.log(localStorage);
+  document.title = state.count;
+  console.log('After', state.count);
 };
 
 class Counter extends Component {
@@ -31,15 +32,25 @@ class Counter extends Component {
       () => storeStateInLocalStorage(this.state),
     );
 
-    console.log('Before!', this.state);
+    // console.log('Before!', this.state.count);
   }
 
   decrement() {
-    this.setState({ count: this.state.count - 1 });
+    this.setState(
+      state => {
+        return { count: state.count - 1 };
+      },
+      () => storeStateInLocalStorage(this.state),
+    );
   }
 
   reset() {
-    this.setState({ count: 0 });
+    this.setState(
+      () => {
+        return { count: 0 };
+      },
+      () => storeStateInLocalStorage(this.state),
+    );
   }
 
   render() {
