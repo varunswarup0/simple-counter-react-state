@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const getStateFromLocalStorage = () => {
   const storage = localStorage.getItem('counterState');
-  if (storage) return JSON.parse(storage);
+  if (storage) return JSON.parse(storage).count;
   return { count: 0 };
 };
 
-const storeStateInLocalStorage = (state) => {
-  localStorage.setItem('counterState', JSON.stringify(state));
+const storeStateInLocalStorage = (count) => {
+  localStorage.setItem('counterState', JSON.stringify({ count }));
   console.log('After', state.count);
 };
 
